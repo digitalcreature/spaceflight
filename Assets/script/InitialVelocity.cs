@@ -16,7 +16,7 @@ public class InitialVelocity : MonoBehaviour {
 		}
 	}
 
-	void OnDrawGizmosSelected() {
+	void OnDrawGizmos() {
 		Gizmos.color = new Color(1, 0.7f, 0);
 		Gizmos.DrawLine(transform.position, transform.position + initialVelocity);
 	}

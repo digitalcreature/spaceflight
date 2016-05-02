@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//a behaviour of which all active instances are cached for easy access
+//accessed through 'all' property
 public class CachedBehaviour<T> : MonoBehaviour where T : CachedBehaviour<T> {
 
 	static HashSet<T> _all;
-	public static HashSet<T> all {
+	public static IEnumerable<T> all {
 		get {
 			if (_all == null) {
 				_all = new HashSet<T>();
@@ -14,11 +16,11 @@ public class CachedBehaviour<T> : MonoBehaviour where T : CachedBehaviour<T> {
 	}
 
 	protected virtual void OnEnable() {
-		all.Add((T) this);
+		((HashSet<T>) all).Add((T) this);
 	}
 
 	protected virtual void OnDisable() {
-		all.Remove((T) this);
+		((HashSet<T>) all).Remove((T) this);
 	}
 
 }

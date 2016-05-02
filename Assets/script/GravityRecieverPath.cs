@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class CachedRigidbodyPath : MonoBehaviour {
+public class GravityRecieverPath : MonoBehaviour {
 
 	public int pathPoints = 1000;
-	public int stepsPerPoint = 15;
+	public int stepsPerPoint = 5;
 
-	public CachedRigidbody cachedBody;
+	public GravityReciever reciever;
 
 	LineRenderer lineRenderer;
 
@@ -15,16 +15,13 @@ public class CachedRigidbodyPath : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		if (cachedBody && cachedBody.body) {
-			Vector3 pos = cachedBody.body.position;
-			Vector3 vel = cachedBody.body.velocity;
+		if (reciever && reciever.body) {
+			Vector3 pos = reciever.body.position;
+			Vector3 vel = reciever.body.velocity;
 			for (int p = 0; p < pathPoints; p ++) {
 				lineRenderer.SetPosition(p, pos);
 				for (int s = 0; s < stepsPerPoint; s ++) {
-					Vector3 acc = Vector3.zero;
-					foreach (GravitySource source in GravitySource.all) {
-						acc += source.GetAcceleration(pos);
-					}
+					Vector3 acc = reciever.GetGravity(pos);
 					vel += acc * Time.fixedDeltaTime;
 					pos += vel * Time.fixedDeltaTime;
 				}
