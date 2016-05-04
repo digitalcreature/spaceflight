@@ -7,6 +7,7 @@ public class GravityRecieverPath : MonoBehaviour {
 	public float accelerationColorsStart = 1000;
 	public float accelerationColorsEnd = 5000;
 	public Transform center;
+	public bool recenter = true;
 
 	public GravityReciever reciever;
 
@@ -17,10 +18,12 @@ public class GravityRecieverPath : MonoBehaviour {
 		filter = GetComponent<MeshFilter>();
 		InitializeMesh();
 		transform.parent = null;
+		transform.rotation = Quaternion.identity;
+		transform.localScale = Vector3.one;
 	}
 
 	void FixedUpdate() {
-		if (center) {
+		if (center && recenter) {
 			transform.position = center.position;
 		}
 		else {
@@ -34,7 +37,9 @@ public class GravityRecieverPath : MonoBehaviour {
 			for (int i = 0; i < steps; i ++) {
 				Vector3 acc = reciever.GetGravity(pos);
 				float accColorT = Mathf.Clamp(acc.magnitude, accelerationColorsStart, accelerationColorsEnd) / (accelerationColorsEnd - accelerationColorsStart);
-				colors[i] = accelerationColors.Evaluate(accColorT);
+				Color color = accelerationColors.Evaluate(accColorT);
+				color.a = 1 - ((float) i / steps);
+				colors[i] = color;
 				vel += acc * Time.fixedDeltaTime;
 				pos += vel * Time.fixedDeltaTime;
 				verts[i] = pos - transform.position;

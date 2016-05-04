@@ -20,6 +20,18 @@ public class GravityReciever : MonoBehaviour {
 		return gMax;
 	}
 
+	public float GetGravityPotential() { return GetGravityPotential(body.position); }
+	public float GetGravityPotential(Vector3 position) {
+		float uGMax = 0;
+		foreach (GravitySource source in GravitySource.all) {
+			float uG = source.GetGravityPotential(position);
+			if (uG < uGMax) {
+				uGMax = uG;
+			}
+		}
+		return uGMax;
+	}
+
 	void FixedUpdate() {
 		body.AddForce(GetGravity(), ForceMode.Acceleration);
 	}

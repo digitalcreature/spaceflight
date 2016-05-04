@@ -6,11 +6,25 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: icosphere2
+    100004: icosphere5
+    100006: icosphere5_smooth
     400000: //RootNode
+    400002: icosphere2
+    400004: icosphere5
+    400006: icosphere5_smooth
     2300000: //RootNode
+    2300002: icosphere2
+    2300004: icosphere5
+    2300006: icosphere5_smooth
     3300000: //RootNode
+    3300002: icosphere2
+    3300004: icosphere5
+    3300006: icosphere5_smooth
     4300000: icosphere3
     4300002: icosphere2
+    4300004: icosphere5
+    4300006: icosphere5_smooth
   materials:
     importMaterials: 0
     materialName: 0
