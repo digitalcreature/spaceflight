@@ -8,6 +8,7 @@ public class GravityPotentialGraphMesh : MonoBehaviour {
 
 	MeshFilter filter;
 	Mesh mesh;
+	Vector3[] verts;
 
 	void Awake() {
 		filter = GetComponent<MeshFilter>();
@@ -19,8 +20,8 @@ public class GravityPotentialGraphMesh : MonoBehaviour {
 			Vector3 position = reciever.body.position;
 			position.y = 0;
 			transform.position = position;
-			Vector3[] verts = mesh.vertices;
 			verts[0] = transform.InverseTransformPoint(reciever.body.position);
+			verts[1] = Vector3.zero;
 			for (int i = 1; i < verts.Length; i ++) {
 				Vector3 pos = verts[i];
 				pos.y = 0;
@@ -34,7 +35,7 @@ public class GravityPotentialGraphMesh : MonoBehaviour {
 	void InitializeMesh() {
 		mesh = new Mesh();
 		mesh.name = GetType().Name;
-		Vector3[] verts = new Vector3[(gridSize + 1) * (gridSize + 1) + 2];
+		verts = new Vector3[(gridSize + 1) * (gridSize + 1) + 2];
 		Color[] colors = new Color[verts.Length];
 		List<int> indices = new List<int>();
 		indices.Add(0);
